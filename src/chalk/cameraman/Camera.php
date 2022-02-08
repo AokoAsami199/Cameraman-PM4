@@ -26,7 +26,7 @@ namespace chalk\cameraman;
 
 use chalk\cameraman\movement\Movement;
 use chalk\cameraman\task\CameraTask;
-use pocketmine\level\Location;
+use pocketmine\world\Location;
 use pocketmine\player\Player;
 
 class Camera {
