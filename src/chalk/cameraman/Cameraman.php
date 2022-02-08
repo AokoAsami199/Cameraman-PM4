@@ -33,7 +33,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\level\Location;
+use pocketmine\world\Location;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\MovePlayerPacket;
 use pocketmine\player\Player;
@@ -139,9 +139,9 @@ class Cameraman extends PluginBase implements Listener {
             foreach($waypoints as $waypoint){
                 $x = floatval($waypoint["x"]); $y = floatval($waypoint["y"]); $z = floatval($waypoint["y"]);
                 $yaw = floatval($waypoint["yaw"]); $pitch = floatval($waypoint["pitch"]);
-                $level = $this->getServer()->getLevelByName($waypoint["level"]);
+                $world = $this->getServer()->getWorldByName($waypoint["world"]);
 
-                $this->waypointMap[$key][] = new Location($x, $y, $z, $yaw, $pitch, $level);
+                $this->waypointMap[$key][] = new Location($x, $y, $z, $yaw, $pitch, $world);
             }
         }
     }
@@ -157,7 +157,7 @@ class Cameraman extends PluginBase implements Listener {
                 $waypointMap[$key][] = [
                     "x" => $waypoint->getX(), "y" => $waypoint->getY(), "z" => $waypoint->getZ(),
                     "yaw" => $waypoint->getYaw(), "pitch" => $waypoint->getPitch(),
-                    "level" => $waypoint->isValid() ? $waypoint->getLevel()->getName() : null
+                    "world" => $waypoint->isValid() ? $waypoint->getWorld()->getName() : null
                 ];
             }
         }
@@ -293,7 +293,6 @@ class Cameraman extends PluginBase implements Listener {
     private static $colorTITLE = TextFormat::RESET . TextFormat::RED        . TextFormat::BOLD;
 
     private static $commands = [
-        "p", "start", "stop", "info", "goto", "clear", "help", "about"
     ];
 
     private static $commandMap = [
